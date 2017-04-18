@@ -1,0 +1,216 @@
+# This File contains many little tricks for R
+# Note that R is a CASE SENSETIVE language
+################################################
+# 1. Getting Help
+################################################
+> Help.search ("Normal Distribution")    // Search all help topics that contain the phrase Normal Distribution
+> ?? "Normal Distrinbution"
+
+> help(Normal)    // Normal is a function
+> ? Normal
+
+> 1:4
+[1] 1 2 3 4
+
+################################################
+# 2. Load Data and Save Data
+################################################
+> read.table("<name and extension of your file>", ...)
+> read.csv(file.choose(), header = TRUE)
+
+> read.xlsx("<name and extension of your file>", sheetIndex = 1)    // From XLSX package
+> read.xlsx2("<name and extension of your file>", sheetIndex = 1, startRow=2, colIndex = 2)   // For bigger dataset
+
+df <- read.xls("<name of your file.xls>", perl="<location of perl.exe file on your pc")   // From gdata Package
+                  // It uses Perl to translate Excel Files (both xlsx and xls) to .csv or .tab file
+                  
+> write.csv(Data_csv, file = "Data.csv")               
+################################################
+# 3. Object Oriented Language
+################################################
+> x <- 1
+> y <- matrix(1, nrow = 1, ncol = 1)
+> is(x)
+[1] "numeric" "vector"
+> class(x)
+[1] "numeric"
+> attributes(x)   // returns which attribute function can be used for x
+NULL
+> is(y)
+[1] "matrix" "array" "structure" "vector" 
+> class(y)
+[1] "matrix"
+> attributes(y)
+$dim
+[1] 1 1
+
+> z <- c("yes","no")
+> z <- as.factor(z)
+> is(z)
+[1] "factor"              "integer"             "oldClass"           
+[4] "numeric"             "vector"              "data.frameRowLabels"
+> attributes(z)
+$levels
+[1] "no"  "yes"
+
+$class
+[1] "factor"
+
+################################################
+# 4. Vector Generator
+################################################
+> rep(1, 3)
+[1] 1 1 1
+
+> 1:5
+[1] 1 2 3 4 5
+ 
+> seq(from = 10, to = 12, length.out = 5)
+[1] 10 10.5 11 11.5 12
+> seq(10, 12, 1)
+[1] 10 11 12
+
+> runif(5, min = 0, max = 1)
+[1] 0.5049903 0.4121170 0.1538180 0.1439810 0.4271892
+
+> v1 <- c(1, 3, 5, 7, 9)
+> names(v1) <- c("N1", "N2", "N3", "N4","N5")   // Colnames only works with the object with more than 2 dimensions.
+> v1
+N1 N2 N3 N4 N5 
+ 1  3  5  7  9 
+> v1["N2"]
+[1] 3
+
+################################################
+# 5. Matrix generator
+################################################
+> Matrix(1:9, 3, 3)
+
+> B <- cbind(v1, v2, v3, v4)    # combine columns or rows (rbind)
+
+> C <- B[1:3, 1:3]
+
+# 4. Matrix Operation
+> diag(A)
+
+> x <- c(2:4)
+
+> A %*% x
+> t(x) %*% A %*% x
+> x %*% A %*% x   // x can be transposed implicitly since that's the only way for calculation
+
+> crossprod(x)    // x'x
+> t(x) %*% x    // x'x
+
+> solve(a, b, ...)    // a %*% x = b, solve for x. If b is missing, then b is defaulted to an identity matrix
+                      // and solve for the inverse matrix
+                      
+################################################                      
+# 6. Data Frame
+################################################
+> data <- matrix(runif(12),3,4)
+> data
+          [,1]      [,2]       [,3]
+[1,] 0.9493494 0.1377716 0.31627077
+[2,] 0.7451205 0.4400815 0.96873863
+[3,] 0.6339414 0.3067355 0.51133041
+[4,] 0.2943720 0.0374838 0.01735451
+
+> Data <- data.frame(Consumption = data[,1], Income = data[,2], Wealth = data[,3])
+> Data
+  Consumption    Income     Wealth
+1   0.9493494 0.1377716 0.31627077
+2   0.7451205 0.4400815 0.96873863
+3   0.6339414 0.3067355 0.51133041
+4   0.2943720 0.0374838 0.01735451
+> attributes(Data)
+$names
+[1] "Consumption" "Income"      "Wealth"     
+
+$row.names
+[1] 1 2 3 4
+
+$class
+[1] "data.frame"
+
+> attach(Data)    // Data must be a ‘database’. This can be a data.frame or a list or a R 
+                  // data file created with save or NULL or an environment. After attach, 
+                  // objects in the database can be simply referred by their names
+> summary(Income)
+
+> Data$Income
+[1] 0.1377716 0.4400815 0.3067355 0.0374838   // a vector
+> Data["Income"]    // a dataframe
+     Income
+1 0.1377716
+2 0.4400815
+3 0.3067355
+4 0.0374838
+
+################################################ 
+# 7. List
+################################################ 
+> Sonja <- list(Office="HH237", Research=c("Macro","labour","Search Theory"), LuckyNumber=c(7,11,125))
+> Sonja
+$Office
+[1] "HH237"
+
+$Research
+[1] "Macro"         "labour"        "Search Theory"
+
+$LuckyNumber
+[1]   7  11 125
+> attributes(Sonja)
+$names
+[1] "Office"      "Research"    "LuckyNumber"
+
+> Sonja$Research    // a vector
+[1] "Macro"         "labour"        "Search Theory"
+> Sonja[2]    // a list
+$Research
+[1] "Macro"         "labour"        "Search Theory"
+> Sonja[[2]]    // item in a list, it's a vector
+[1] "Macro"         "labour"        "Search Theory"
+
+################################################ 
+# 8. lm function
+################################################ 
+> res <- lm(Income~Consumption+Wealth)    // Income, Consumption, Wealth can be found since Data has been attached
+> res
+
+Call:
+lm(formula = Income ~ Consumption + Wealth)
+
+Coefficients:
+(Intercept)  Consumption       Wealth  
+    0.06555     -0.06700      0.46072  
+
+> summary(res)
+
+Call:
+lm(formula = Income ~ Consumption + Wealth)
+
+Residuals:
+        1         2         3         4 
+-0.009884 -0.021859  0.048081 -0.016338 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  0.06555    0.08253   0.794    0.573
+Consumption -0.06700    0.13611  -0.492    0.709
+Wealth       0.46072    0.09345   4.930    0.127
+
+Residual standard error: 0.05616 on 1 degrees of freedom
+Multiple R-squared:  0.967,	Adjusted R-squared:  0.901 
+F-statistic: 14.65 on 2 and 1 DF,  p-value: 0.1817
+
+> attributes(res)
+$names
+ [1] "coefficients"  "residuals"     "effects"       "rank"         
+ [5] "fitted.values" "assign"        "qr"            "df.residual"  
+ [9] "xlevels"       "call"          "terms"         "model"        
+
+$class
+[1] "lm"
+
+>res$fit    // short for fitted.valuesv
