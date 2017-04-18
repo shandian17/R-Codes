@@ -1,3 +1,3 @@
 # R-Codes
-A refresh for using
-Just following instructions
+A refresh for using R
+May be a side project or something
