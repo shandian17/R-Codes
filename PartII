@@ -1,0 +1,99 @@
+
+# This File contains many little tricks for R
+# Note that R is a CASE SENSETIVE language
+# Part Two
+################################################
+# 1. Loops
+################################################
+> v <- seq(from = 1, to = 10, by = 2)
+[1] 1 3 5 7 9
+> sqr <- Null   // creating an empty vector, can be also achieved by:
+> sqr <- vector()
+> M <- matrix( , 3, 6)    //creating an empty matrix
+> for (i in 1:5) {
+    sqr[i] <- v[i]^2    // If no i is assigned for sqr, only the last number (81) will be calculated and assigend.
+  }
+
+################################################
+# 2. If statement
+################################################
+> x <- rnorm(1, mean = 0, sd = 1)
+> if (x>0) {
+  print("Non negative, good")
+  }else{
+  print("No good")
+  }
+
+################################################
+# 3. Apply family
+################################################
+> M <- matrix(1:8,4,2)
+> M
+     [,1] [,2]
+[1,]    1    5
+[2,]    2    6
+[3,]    3    7
+[4,]    4    8
+> apply(M, 2, sum)    // Apply the function "sum" to M's 2nd dimension (sum by col)
+[1] 10 26
+> apply(M, 1, sum)    // Apply the function "sum: to M's 1st dimension (sum by row)
+[1]  6  8 10 12
+
+> Y <- matrix(rnorm(1000), 100,10)
+> X <- runif(100, 0, 1)
+> Set.Coef <- sapply(1:10, f(i) lm(Y[,i]~X)$coef)   // or
+> f <- function(i) {
+    res <- ln(Y[,i]~X)
+    t <- summary(res)$coef[,3]
+    return(t)
+    }
+> Set.Coef <- sapply(1:10, f)   // lapply will do simliar thing to sapply but it will create a list
+
+> x
+  X1 X2 X3
+1  1  6  M
+2  2  7  F
+3  3  8  F
+4  4  9  F
+5  5 10  M
+> tapply(as.numeric(x$X1), x$X3, sum)
+F M 
+9 6
+
+################################################
+# 4. Plot
+################################################
+> plot(x,y, pch="@", cex=2, col="pink", xlab="variale x", ylab="Value Y", main="Title: Scatter Plot ")
+> plot(1:10, y, type="l", lty=2, lwd=2, xlab="Index", ylab="Value Y", main="Title: Line Plot ")
+> reg <- lm(y~x)
+> abline(reg, lty = 2, lwd = 2, col="red")    // fitted line
+> abline(h=mean(y), lty=4, lwd=2, col="blue")   // add a line for mean
+> points( x[which(y==max(y))]  , max(y)  , pch=19, cex=1.5, col="red" )   // show the highest value
+> text(x[which(y==max(y))]-0.1  , max(y), "Rich Kid" )    // label the higheest value
+> legend("topleft", c("Fitted model", "Mean Consumption"), lty= c(2, 4), lwd=c(2,2) , col=c("blue", "red") )
+
+################################################
+# 5. Subsets
+################################################
+> dat <- subset(data, y > 2 & V2 > 0.4, select = c(V1, V4))
+> dat <- dat[-which(is.na(dat$country))   //remove null value
+
+################################################
+# 6. Sort
+################################################
+> x <- rnorm(10)
+> y <- rnorm(10)
+> A <- cbind(x,y)
+> sort.int(A[,2], index = TRUE)
+$x
+ [1] -1.36415192 -1.00241980 -0.36772094  0.03289945  0.12797827  0.19218284
+ [7]  0.36306778  0.83740215  1.09804621  1.10913455
+
+$ix
+ [1]  4  1 10  5  7  6  9  2  8  3
+ > ind <- sort.int(A[,2], index=TRUE)$ix
+ > A[ind,]
+ 
+ > order(A[,2])
+ [1]  4  1 10  5  7  6  9  2  8  3
+ > A[order(as.numeric(A[,2])),]
