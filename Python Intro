@@ -1,0 +1,133 @@
+####################################################
+################### Text Data ######################
+####################################################
+1. Escape Sign \
+> message = 'Bobby\'s world'
+> message = "Bobby's world"
+
+2. Multiline msg
+> message = """asfasf
+               asfdasldf"""
+
+3. Location of string
+> print(message[0:5])
+> print(message[ :6])
+
+4. Methods (functions of object)
+> message.upper()
+> message.count('l')                              #count how many ls in message
+> message.find('l'))                              #find the FIRST 'l' in message
+> message.replace('Hello', 'Hi')                  #the original is not changed
+> message = message.replace('Hello', 'Hi')
+
+5. Concatenate
+> message = greeting + ' ' + name + '. Welcome!'
+> message = '{}, {}. Welcome!'.format(greating, name)    #{} is place holder
+> message = f'{greating}, {name}. Welcome!'              #f strings with Python 3.6
+
+6. Help: show methods
+> print(dir(m))
+> print(type(m))              #return class of m
+> print(help(STR))            #help only accept actual class of the object. For example m is string, so str
+
+####################################################
+#################### Numbers #######################
+####################################################
+1. Incremental functions
+> num = num +1
+> num = 2
+> num += 1
+: num = 3
+
+2. Convert string to in
+> num = int('123')
+
+####################################################
+############### List, Tuples, Sets #################
+####################################################
+1. List
+> c = ['His', 'Hers', 'Ours', 'Yours']
+> len(c) 
+: 4
+
+2. Append method of list
+> c.append('Mine')
+> c.insert(2,'Mine')         #insert to the 3rd position
+
+3. Combine Lists - Extenda() method
+> c2 = ['he', 'she']
+> c.extend(c2)
+: ['His', 'Hers', 'Ours', 'Yours', 'he', 'she']
+> c.append(c2)
+: ['His', 'Hers', 'Ours', 'Yours', ['he', 'she']]
+
+4. Remove values from list - remove(), pop() methods
+> c.remove('Yours')          #unlike strings, method of list will affect the original list
+> c.pop()                    #by default, it remove the last item in the list and retrun the value of it
+
+5. Reverse or sort list
+> c.reverse()
+> c.sort()/c.sort(reverse)
+> sorted(c)                  #this will not affect the original list
+
+6. Check the list - index() methods and in
+> c.index('His')              #similar to the Find() method of strings. list do not has find() method
+> 'Ours' in c
+> for lalala in c:
+      print(lalala)
+      
+7. Enumerate functions - include index in the loop
+> for num, lalala in enumerate(c, start = 2):
+      print (num, lalala)
+: 2 Ours
+  3 Yours
+  4 he
+  5 she
+  
+8. Convert list to strings - join() and split() method
+> string = ', '.join(c)
+> string
+: 'His, Hers, Ours, Yours, he, she'
+> string.split(', ')
+> [His, Hers, Ours, Yours, he, she]
+
+9. Mutable object
+> list1 = ['Her','She','His']
+> list2 = list1
+> list1[0] = 'I'
+> list2
+: ['I','She','His']
+
+10. Tuples (imutable)
+> t = ('Her', 'She')
+
+11. Sets - Unordered and distinct values
+> sets = {'History', 'Match', 'Physics'}
+> sets
+: {'Match','History','Physics'}             #sets do no have order
+> sets = {'He', 'She', 'He'}
+> sets
+: {'He', 'She'}                             #sets will remove dup automatically
+
+12. Membership tests
+> 'He' in sets                              #Even though list can do the same, but set is faster
+: True
+
+13. Cross check btw sets
+> set1 = {'He','She','It','I'}
+> set2 = {'She','I','His','Its}
+> set1.intersection(set2)
+: {'She','I'}
+> set1.difference(set2)
+: {'He','It'}
+> set2.difference(set1)
+: {'His','Its'}
+> set1.union(set2)
+: {'He','His','She','It','I','Its'}
+
+14. Create empaty Set, Tuple, List
+> empty_list = []
+> empty_list = list()
+> empty_tuple = ()
+> empty_tuple = tuple()
+> empty_set = set()                         #{} will create an empty dictionary
