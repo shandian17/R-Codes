@@ -131,3 +131,137 @@
 > empty_tuple = ()
 > empty_tuple = tuple()
 > empty_set = set()                         #{} will create an empty dictionary
+
+
+####################################################
+#################### Dictionary ####################
+####################################################
+1. Define a dictionary
+> st = {'name': 'John', 'age': 25, 'courses': ['Math','CS']}
+> st['courses']
+: ['Math','CS']
+> st.get('phone','not found')
+: 'not found'
+> st.get('phone')
+: None                                #the get() method can be used for extract undefined keys. The default is None
+
+2. Update the key
+> st['phone']= '555-5555'
+> st['name'] = 'Jo'
+> print(st)
+: {'name': 'Jo', 'age': 25,..., 'phone': '555-5555'}
+> st.update({'name': 'Jane', 'age': 26, 'ph': 'A'}
+
+3. Delete the key
+> del st['age']
+> st.pop('age')
+
+4. Extract values and keys
+> print(len(st))                #return how many keys in the dictionary
+> st.key()                      #return keys in the dict
+> st.values()                   #return values in the dict
+> st.items()                    #return keys and values in pair
+
+5. Loop through Dict
+> for K, V in st.items()
+    print(K, V)
+    
+####################################################
+#################### Conditions ####################
+####################################################
+1. If statement
+> L = 'Python'
+> IF L == 'Python' and 5==5:
+      Print(44)
+  Elif L == 'Java':
+      Print(22)
+  Else:
+      print(55)
+      
+ 2. 'IS' test identity
+ > a = [1,2,3]
+ > b = [1,2,3]
+ > a == b
+ : True
+ > a is b
+ : False
+ > print(id(a))
+ : 1242352953
+ > print(id(b))
+ : 2391584325
+ > b = a
+ > a is b
+ > True
+ 
+ 3. Boolean          #None, False, 0, '', (), [], {} are return False
+ 
+####################################################
+################# Loops and Iteratio ###############
+####################################################
+1. Basic Loop with Break
+> nums = [1,2,3,4,5]
+> for n in nums:
+    if n == 1:
+      print('f')
+      continue
+    elif num = 2:
+      print('222')
+      print('hhh')              #python use space to determine which hierarchy a statment is belong to. R use {} 
+    elif n == 4
+      print('Found!')
+      break
+    print(n)
+: f
+  222
+  hhh
+  2
+  3
+  Found!
+  
+2. Nested Loops
+> for n in nums:
+    for l in 'abc'
+      print(n, l)
+ 
+3. Range
+> for i in range(1,11)          #from 1 to 10
+    print(i)
+> fro i in range(10)
+    print(i)                    #from 0 to 9
+    
+4. While Loops
+> while x < 10:
+    print(x)
+    x += 1
+    
+ 
+####################################################
+##################### Functions ####################
+####################################################    
+1. Simple functions
+> def sample():
+    return 'Hello'
+> sample().upper()            #since the function will retrun a string, we can just treat the fcn as a string
+
+2. Function with vars
+> def sample(var = 'u'):                  #set a varible with a default value 'u'
+    retrun '{} i dont know.'.format(var)
+    
+3. Function with positional arg and keyword arg
+> def sample(*args, **kwags):         #args and kwags are just conventions, it can be any name
+    print(args)
+    print(kwargs)
+> sample(1,2,'Mat', name='J',age=22)
+: (1,2,'Mat')
+  {'name': 'J', 'age': 22}
+> course = ['M', 'CS']
+> info = {'name': 'John', 'age': 22]
+> sample(course, info)
+: (['M', 'CS'],{'name': 'John', 'age': 22})           #the two var are treated as two prositional
+: {}                                                  #arg so they are combined as a tuple
+> sample(*course, **info)
+: ('M', 'CS')
+: {'name': 'John', 'age': 22}
+
+
+: 
