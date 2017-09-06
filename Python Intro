@@ -264,4 +264,70 @@
 : {'name': 'John', 'age': 22}
 
 
-: 
+####################################################
+###################### Modules #####################
+####################################################
+1. Import a file (modules)
+> import my_module as mm            #there is a my_module.py file saved in the same directory as the current one, so we
+                                    #can import it directly. All codes in that file will be excecuted.
+2. Calling functions in modules
+> mm.find_index()
+
+3. Import the function directly
+> from my_module import find_index, test as tt        #only the find_index function will be imported
+> find_index()                                        #you can call it directly
+
+4. Check the path Python check for modules
+> import sys
+> print(sys.path)                 #return a list of path
+
+5. Import modules under path other than the standard ones
+> import sys
+> sys.path.append('/users/Wayland/Desktop.....')
+
+
+####################################################
+#################### Generator #####################
+####################################################
+Generator allow you to create a function that will not give the result when you call it until you need it
+1. example functions
+> def sq_num(n):
+      result = []
+      for i in n:
+          result.append(i*i)
+      return result
+> my_num = sq_num([1,2,3,4,5])
+> print my_num
+: [1,4,9,16,25]
+
+2. generator version
+> def sq_num(n):
+      for i in n:
+          yield (i*i)
+> my_num = sq_num([1,2,3,4,5])
+: <generator object sq_num at 0x1004dc500>
+> print next(my_num)
+> print next(my_num)
+: 1
+  4
+
+3. List comprehension version of function
+> my_num = [i*i for i in [1,2,3,4,5])
+> print my_num
+: [1,4,9,16,25]
+
+4. List comprehension version of generator
+> my_num = (i*i for i in [1,2,3,4,5])
+> print my_num
+: <generator object sq_num at 0x1004dc400>
+> for x in my_num
+      print(x)
+: 1
+  4
+  9
+  16
+  25
+> print list(my_num)
+: [1,4,9,16,25]           #you will lose the advantage of speed of generator
+
+
