@@ -69,3 +69,107 @@
 : 1.04
 : 1.04
 : 2
+
+
+####################################################
+########### ClassMethod and Staticmethod ###########
+####################################################
+1. ClassMethod that work with the Class itself
+> Class Employee:
+      raise_amount = 1.04
+      num_of_emps = 0
+      def __init__(self,first,last):          
+          self.first = first
+          self.last = last 
+          self.pay = 50000
+          Employee.num_of_emps += 1
+      def fullname(self):         
+          return '{} {}'.format(self.first, self.last)
+      def apply_raise(self):
+          self.pay = int(self.pay * self.raise_amount)
+      
+      @classmethod                               #tell python that the following method is working with class
+      def set_raise_amt(cls, amount):            #it will take the class rather than the instance as the first argument automatically
+            cls.raise_amount = amount
+> emp1 = Employee('Way','Ze')
+> emp2 = Employee('Chloe','Ma')            
+> Employee.set_raise_amt(1.05)
+> print(emp1.raise_amount)
+> print(Employee.raise_amount)
+: 1.05
+: 1.05
+
+2. Alternate constructor
+> Class Employee:
+      raise_amount = 1.04
+      num_of_emps = 0
+      def __init__(self,first,last):          
+          self.first = first
+          self.last = last 
+          self.pay = 50000
+          Employee.num_of_emps += 1
+      def fullname(self):         
+          return '{} {}'.format(self.first, self.last)
+      def apply_raise(self):
+          self.pay = int(self.pay * self.raise_amount)
+      @classmethod                              
+      def set_raise_amt(cls, amount):    
+            cls.raise_amount = amount
+      
+      @classmethod
+      def from_string(cls, empstr):
+            first, last, pay = empstr.split('-')
+            return cls(first, last, pay)
+> emp_str_1 = 'John-Doe-70000'
+> new_emp1 = Employee.from_string(emp_str_1)
+
+3. Staticmethod which does not pass anything automatically
+> Class Employee:
+      raise_amount = 1.04
+      num_of_emps = 0
+      def __init__(self,first,last):          
+          self.first = first
+          self.last = last 
+          self.pay = 50000
+          Employee.num_of_emps += 1
+      def fullname(self):         
+          return '{} {}'.format(self.first, self.last)
+      def apply_raise(self):
+          self.pay = int(self.pay * self.raise_amount)
+      @classmethod                              
+      def set_raise_amt(cls, amount):    
+            cls.raise_amount = amount
+      @classmethod
+      def from_string(cls, empstr):
+            first, last, pay = empstr.split('-')
+            return cls(first, last, pay)
+           
+      @staticmethod
+      def is_workdaty(day):
+            if day.weekday() == 5 or if day.weekday() == 6:
+                  return False
+            return True
+
+
+####################################################
+################# Class Inheritance ################
+####################################################
+1. Create SubClass by inheritance
+> Class Developer(Employee):
+      raise_amount = 1.1            #it only affect the subclass
+> Dev1 = Developer('Way', 'Ze', 50000)
+> Dev2 = Employee('Chloe', 'Ma', 60000)
+> Dev1.full_name()            #the method and __init__ and attributes are inherited from Employee class
+> Dev1.raise_amount
+> Dev2.riase_amount
+: Way Ze                
+: 1.10            
+: 1.04            #only subclass' raise_amount has been changed
+
+2. Editing the __init__ in the subclass
+> Class Developer(Employee):
+      def __init__(self, first, last, pay, program):
+            super().__init__(first, last, pay)              #the super().__init__ call's parent class' method 
+            Employee.__init__(self, first, last, pay)       #alternatively, we can call Employee class directly
+            self.prog = program
+
