@@ -331,3 +331,12 @@ Generator allow you to create a function that will not give the result when you 
 : [1,4,9,16,25]           #you will lose the advantage of speed of generator
 
 
+####################################################
+#################### Unit Test #####################
+####################################################
+1. Begin the test
+> Import unittest
+> Import calc           #the module that you want to test
+> class TestCalc(unittest.TestCase):        #create a class
+>     def test_add(self):       #writing a method
+>         result = calc.add(10,5)
