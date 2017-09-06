@@ -173,3 +173,47 @@
             Employee.__init__(self, first, last, pay)       #alternatively, we can call Employee class directly
             self.prog = program
 
+
+####################################################
+############## Magic (dunder) methds ###############
+####################################################
+1. repr() and str()
+> class Employee:
+      def __init__(self, first, last, pay)
+            self.first = first
+            self.last = last
+            self.pay = pay
+            self.email = '{}.{}@company.com'.format(first, last)
+      def fullname(self)
+            '{} {}'.format(self.first, self.last)
+
+> emp1 = Employee('Way','Ze',60000)
+> print(emp1)
+: <__main__.Employee object at 0x101b2b0f0>
+
+-------------- Then we add the __repr__ to the class ---------------
+      def __repr__(self):            #it will override the info showed when calling an instance directly
+            return "Employee('{}', '{}', {})".format(self.first, self.last, self.pay)
+
+> print(emp1)
+: Employee('Way','Ze',60000)
+
+-------------- Then we add the __str__ to the class ---------------
+      def __str__(self):            #this has a higher rank 
+            return '{} - {}'.format(self.fullname(), self.email)
+
+> print(emp2)                 #when print the object itself, Python will check str first, then repr, then default result
+: Way Ze - Way.Ze@Company.com
+> print(repr(emp1))           #same as print(emp1.__repr__())
+> print(str(emp1))
+: Employee('Way','Ze',60000)
+: Way Ze - Way.Ze@Company.com
+
+-------------- Then we add the __add__ to the class --------------------
+      def __add__(self,other)
+            reutrn self.pay + other.pay
+      def __len__(self)
+            return len(self.fullname())
+
+> print(emp1+emp2)
+: 11000
